@@ -10,6 +10,9 @@
 
 @interface ImageShadowView : UIImageView
 
-@property(nonatomic,assign)BOOL isShadow;
+@property(nonatomic,assign)CGFloat conorRadius;
+
+@property(nonatomic,assign)CGFloat shadowOffSet;
+
 - (void)circleShadow;
 @end

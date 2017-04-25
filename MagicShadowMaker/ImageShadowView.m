@@ -7,7 +7,6 @@
 //
 
 #import "ImageShadowView.h"
-//#import "UIImageView+Shadow.h"
 @implementation ImageShadowView
 @synthesize image = _image;
 /*
@@ -19,28 +18,33 @@
 */
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        self.isShadow = YES;
-        if (self.isShadow) {
-            [self shadow];
-        }
+        
+        [self shadow];
+        
     }
     return self;
 }
 - (void)setImage:(UIImage *)image{
     [super setImage:image];
-    if (self.isShadow) {
-        self.layer.shadowColor = [self mostColor:image].CGColor;
-    }
+    self.layer.shadowColor = [self mostColor:image].CGColor;
 }
 
-- (void)setIsShadow:(BOOL)isShadow{
-    _isShadow = isShadow;
-    if (!isShadow) {
-        self.layer.masksToBounds = YES;
-    }
-}
 - (void)circleShadow{
+    //阴影透明度
+    UIView *bgView = [[UIView alloc] initWithFrame:self.frame];
+    [self.superview addSubview:bgView];
+    [self.superview sendSubviewToBack:bgView];
+    self.layer.cornerRadius = self.frame.size.width / 2;
+    self.layer.masksToBounds = YES;
+    bgView.layer.shadowOpacity = 1;
+    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2) radius:self.frame.size.width / 2 startAngle:0 endAngle:M_PI * 2 clockwise:NO];
     
+    bgView.layer.shadowPath = path.CGPath;
+    bgView.layer.shadowColor = [self mostColor:self.image].CGColor;
+    //阴影偏移量
+    bgView.layer.shadowOffset = CGSizeMake(0, 3);
+    //阴影模糊半径
+    bgView.layer.shadowRadius = 8;
 }
 //阴影方法
 - (void)shadow{
@@ -50,13 +54,10 @@
     
     self.layer.shadowPath = path.CGPath;
     self.layer.shadowColor = [self mostColor:self.image].CGColor;
-    
     //阴影偏移量
     self.layer.shadowOffset = CGSizeMake(0, 5);
-    
     //阴影模糊半径
     self.layer.shadowRadius = 8;
-    
 }
 
 //根据图片获取图片的主色调
