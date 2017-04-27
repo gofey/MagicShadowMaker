@@ -2,8 +2,11 @@
 仿照一个安卓端效果做的，可以根据图片的主题色显示不同的阴影
 
 https://github.com/gofey/MagicShadowMaker/show.mp4
+
 https://github.com/gofey/MagicShadowMaker/show1@2x.png
+
 https://github.com/gofey/MagicShadowMaker/show2@2x.png
+
 https://github.com/gofey/MagicShadowMaker/show3@2x.png
 
 使用方式很简单
