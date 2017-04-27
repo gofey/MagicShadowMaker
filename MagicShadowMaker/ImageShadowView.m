@@ -7,8 +7,14 @@
 //
 
 #import "ImageShadowView.h"
+
+@interface ImageShadowView()
+
+@property(nonatomic,strong)UIImageView *imgView;
+
+@end
 @implementation ImageShadowView
-@synthesize image = _image;
+
 /*
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
@@ -19,41 +25,51 @@
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
         
+        
         [self shadow];
         
     }
     return self;
 }
+
+#pragma mark - 重写set方法
 - (void)setImage:(UIImage *)image{
-    [super setImage:image];
-    self.layer.shadowColor = [self mostColor:image].CGColor;
+    dispatch_queue_t q = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
+    dispatch_async(q, ^{
+        //设置阴影颜色
+        UIColor *color = [self mostColor:image];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            //赋值
+            self.layer.shadowColor = color.CGColor;
+            self.imgView.image = image;
+        });
+    });
 }
 
-- (void)circleShadow{
-    //阴影透明度
-    UIView *bgView = [[UIView alloc] initWithFrame:self.frame];
-    [self.superview addSubview:bgView];
-    [self.superview sendSubviewToBack:bgView];
-    self.layer.cornerRadius = self.frame.size.width / 2;
-    self.layer.masksToBounds = YES;
-    bgView.layer.shadowOpacity = 1;
-    UIBezierPath *path = [UIBezierPath bezierPathWithArcCenter:CGPointMake(self.frame.size.width / 2, self.frame.size.height / 2) radius:self.frame.size.width / 2 startAngle:0 endAngle:M_PI * 2 clockwise:NO];
-    
-    bgView.layer.shadowPath = path.CGPath;
-    bgView.layer.shadowColor = [self mostColor:self.image].CGColor;
-    //阴影偏移量
-    bgView.layer.shadowOffset = CGSizeMake(0, 3);
-    //阴影模糊半径
-    bgView.layer.shadowRadius = 8;
+- (void)setShadowOffSet:(CGSize)shadowOffSet{
+    self.layer.shadowOffset = shadowOffSet;
 }
-//阴影方法
+
+- (void)setCornerRadius:(CGFloat)cornerRadius{
+    self.imgView.layer.cornerRadius = cornerRadius;
+    self.imgView.clipsToBounds = YES;
+
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:self.bounds cornerRadius:cornerRadius];
+    self.layer.shadowPath = path.CGPath;
+}
+
+- (void)setShadowRadius:(CGFloat)shadowRadius{
+    self.layer.shadowRadius = shadowRadius;
+}
+#pragma mark - 阴影方法
 - (void)shadow{
     //阴影透明度
     self.layer.shadowOpacity = 1;
     UIBezierPath *path = [UIBezierPath bezierPathWithRect:self.layer.bounds];
     
     self.layer.shadowPath = path.CGPath;
-    self.layer.shadowColor = [self mostColor:self.image].CGColor;
+    self.layer.shadowColor = [self mostColor:_image].CGColor;
     //阴影偏移量
     self.layer.shadowOffset = CGSizeMake(0, 5);
     //阴影模糊半径
@@ -86,7 +102,9 @@
     
     //第二步 取每个点的像素值
     unsigned char* data = CGBitmapContextGetData (context);
-    if (data == NULL) return nil;
+    if (data == NULL)
+        return nil;
+    
     NSCountedSet *cls = [NSCountedSet setWithCapacity:thumbSize.width * thumbSize.height];
     
     for (int x = 0; x < thumbSize.width; x++) {
@@ -96,13 +114,13 @@
             int green = data[offset + 1];
             int blue = data[offset + 2];
             int alpha =  data[offset + 3];
-            if (alpha > 0) {//去除透明
-                if (red == 255 && green == 255 && blue == 255) {//去除白色
-                }else{
+            if (alpha > 0) {
+                //去除透明
+                if (!(red == 255 && green == 255 && blue == 255)) {
+                    //去除白色
                     NSArray *clr = @[@(red),@(green),@(blue),@(alpha)];
                     [cls addObject:clr];
                 }
-                
             }
         }
     }
@@ -118,9 +136,20 @@
         if ( tmpCount < MaxCount ) continue;
         MaxCount = tmpCount;
         MaxColor = curColor;
+    }
+    
+//    NSLog(@"r:%f,g:%f,b:%f",[MaxColor[0] intValue]/255.0f,[MaxColor[1] intValue]/255.0f,[MaxColor[2] intValue]/255.0f);
+    return [UIColor colorWithRed:([MaxColor[0] intValue]/255.0f) green:([MaxColor[1] intValue]/255.0f) blue:([MaxColor[2] intValue]/255.0f) alpha:([MaxColor[3] intValue]/255.0f)];
+}
+
+- (UIImageView *)imgView{
+    if (!_imgView) {
+        _imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        _imgView.clipsToBounds = YES;
+        [self addSubview:_imgView];
         
     }
-    return [UIColor colorWithRed:([MaxColor[0] intValue]/255.0f) green:([MaxColor[1] intValue]/255.0f) blue:([MaxColor[2] intValue]/255.0f) alpha:([MaxColor[3] intValue]/255.0f)];
+    return _imgView;
 }
 
 @end

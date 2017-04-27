@@ -8,11 +8,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface ImageShadowView : UIImageView
+@interface ImageShadowView : UIView
 
-@property(nonatomic,assign)CGFloat conorRadius;
+@property(nonatomic,strong)UIImage *image;
 
-@property(nonatomic,assign)CGFloat shadowOffSet;
+@property(nonatomic)CGFloat cornerRadius;
 
-- (void)circleShadow;
+@property(nonatomic)CGSize shadowOffSet;
+
+@property(nonatomic)CGFloat shadowRadius;
+
 @end
