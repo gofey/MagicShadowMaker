@@ -23,9 +23,9 @@
     // Do any additional setup after loading the view, typically from a nib.
     
     _index = 0;
-    _imgUrlArray = @[@"http://ooy23086i.bkt.clouddn.com/image9@2x.jpg",@"http://ooy23086i.bkt.clouddn.com/image10@2x.jpg",@"http://ooy23086i.bkt.clouddn.com/image11@2x.jpg",@"http://ooy23086i.bkt.clouddn.com/image12@2x.jpg"];
+//    _imgUrlArray = @[@"http://ooy23086i.bkt.clouddn.com/image9@2x.jpg",@"http://ooy23086i.bkt.clouddn.com/image10@2x.jpg",@"http://ooy23086i.bkt.clouddn.com/image11@2x.jpg",@"http://ooy23086i.bkt.clouddn.com/image12@2x.jpg"];
     self.view.backgroundColor = [UIColor whiteColor];
-    ImageShadowView *imageView = [[ImageShadowView alloc] initWithFrame:CGRectMake(15, [UIScreen mainScreen].bounds.size.height / 2 - 50, 100, 100)];
+    ImageShadowView *imageView = [[ImageShadowView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 2 - 50, [UIScreen mainScreen].bounds.size.height / 2 - 50, 100, 100)];
     [self.view addSubview:imageView];
     imageView.cornerRadius = 50;
     
@@ -33,7 +33,7 @@
     imageView.userInteractionEnabled = YES;
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(changeImage:)];
     [imageView addGestureRecognizer:tap];
-    self.view.backgroundColor = [UIColor yellowColor];
+    
 }
 - (void)changeImage:(UITapGestureRecognizer *)tap{
     UIImageView *imageView = (UIImageView *)tap.view;

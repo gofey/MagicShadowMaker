@@ -15,16 +15,8 @@
 @end
 @implementation ImageShadowView
 
-/*
-// Only override drawRect: if you perform custom drawing.
-// An empty implementation adversely affects performance during animation.
-- (void)drawRect:(CGRect)rect {
-    // Drawing code
-}
-*/
 - (instancetype)initWithFrame:(CGRect)frame{
     if (self = [super initWithFrame:frame]) {
-        
         
         [self shadow];
         
@@ -62,6 +54,18 @@
 - (void)setShadowRadius:(CGFloat)shadowRadius{
     self.layer.shadowRadius = shadowRadius;
 }
+
+#pragma mark - 重写get方法
+- (UIImageView *)imgView{
+    if (!_imgView) {
+        _imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+        _imgView.clipsToBounds = YES;
+        [self addSubview:_imgView];
+        
+    }
+    return _imgView;
+}
+
 #pragma mark - 阴影方法
 - (void)shadow{
     //阴影透明度
@@ -142,14 +146,12 @@
     return [UIColor colorWithRed:([MaxColor[0] intValue]/255.0f) green:([MaxColor[1] intValue]/255.0f) blue:([MaxColor[2] intValue]/255.0f) alpha:([MaxColor[3] intValue]/255.0f)];
 }
 
-- (UIImageView *)imgView{
-    if (!_imgView) {
-        _imgView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
-        _imgView.clipsToBounds = YES;
-        [self addSubview:_imgView];
-        
-    }
-    return _imgView;
-}
+/*
+ // Only override drawRect: if you perform custom drawing.
+ // An empty implementation adversely affects performance during animation.
+ - (void)drawRect:(CGRect)rect {
+ // Drawing code
+ }
+ */
 
 @end
