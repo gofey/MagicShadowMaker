@@ -3,7 +3,7 @@
 
 [https://github.com/gofey/MagicShadowMaker/show.mp4](https://github.com/gofey/MagicShadowMaker/show.mp4 "video")
 
-![images](https://github.com/gofey/MagicShadowMaker/show1.png)
+![images](https://github.com/gofey/raw/master/MagicShadowMaker/show1.png)
 
 ![images](https://github.com/gofey/MagicShadowMaker/show2.png)
 
