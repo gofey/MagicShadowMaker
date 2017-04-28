@@ -27,7 +27,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     ImageShadowView *imageView = [[ImageShadowView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 2 - 50, [UIScreen mainScreen].bounds.size.height / 2 - 50, 100, 100)];
     [self.view addSubview:imageView];
-    imageView.cornerRadius = 50;
+    imageView.cornerRadius = 10;
     
     imageView.image = [UIImage imageNamed:@"image0"];
     imageView.userInteractionEnabled = YES;
