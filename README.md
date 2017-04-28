@@ -1,13 +1,13 @@
 # MagicShadowMaker
 仿照一个安卓端效果做的，可以根据图片的主题色显示不同的阴影
 
-https://github.com/gofey/MagicShadowMaker/raw/master/show.mp4
+[https://github.com/gofey/MagicShadowMaker/show.mp4](https://github.com/gofey/MagicShadowMaker/show.mp4 "video")
 
-https://github.com/gofey/MagicShadowMaker/raw/master/show1@2x.png
+![images](https://github.com/gofey/MagicShadowMaker/show1.png)
 
-https://github.com/gofey/MagicShadowMaker/raw/master/show2@2x.png
+![images](https://github.com/gofey/MagicShadowMaker/show2.png)
 
-https://github.com/gofey/MagicShadowMaker/raw/master/show3@2x.png
+![images](https://github.com/gofey/MagicShadowMaker/show3.png)
 
 使用方式很简单
 
@@ -37,5 +37,5 @@ imageView.layer.shadowColor = [UIColor redColor].CGColor//需要基于layer层�
     
 效果：
 
-
+![images](https://github.com/gofey/MagicShadowMaker/show4.png)
 
