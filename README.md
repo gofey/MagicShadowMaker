@@ -1,7 +1,7 @@
 # MagicShadowMaker
 仿照一个安卓端效果做的，可以根据图片的主题色显示不同的阴影
 
-[http://ooy23086i.bkt.clouddn.com/show.mp4](http://ooy23086i.bkt.clouddn.com/show.mp4 "video")
+![images](http://ooy23086i.bkt.clouddn.com/show.gif)
 
 ![images](http://ooy23086i.bkt.clouddn.com/show1.png)
 
