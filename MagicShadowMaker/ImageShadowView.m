@@ -82,12 +82,10 @@
 
 //根据图片获取图片的主色调
 - (UIColor*)mostColor:(UIImage*)image{
+    //NSLog(@"old:%@",NSStringFromCGSize(image.size));
     
-#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_6_1
     int bitmapInfo = kCGBitmapByteOrderDefault | kCGImageAlphaPremultipliedLast;
-#else
-    int bitmapInfo = kCGImageAlphaPremultipliedLast;
-#endif
+
     //第一步 先把图片缩小 加快计算速度. 但越小结果误差可能越大
     CGSize thumbSize = CGSizeMake(image.size.width / 2, image.size.height / 2);
     
@@ -103,6 +101,7 @@
     CGRect drawRect = CGRectMake(0, 0, thumbSize.width, thumbSize.height);
     CGContextDrawImage(context, drawRect, image.CGImage);
     CGColorSpaceRelease(colorSpace);
+   // NSLog(@"new:%@",NSStringFromCGSize(image.size));
     
     //第二步 取每个点的像素值
     unsigned char* data = CGBitmapContextGetData (context);
@@ -137,7 +136,8 @@
     while ( (curColor = [enumerator nextObject]) != nil )
     {
         NSUInteger tmpCount = [cls countForObject:curColor];
-        if ( tmpCount < MaxCount ) continue;
+        if ( tmpCount < MaxCount )
+            continue;
         MaxCount = tmpCount;
         MaxColor = curColor;
     }
