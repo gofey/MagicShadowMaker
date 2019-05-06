@@ -1,12 +1,6 @@
 # MagicShadowMaker
 仿照一个安卓端效果做的，可以根据图片的主题色显示不同的阴影
 
-![images](http://ooy23086i.bkt.clouddn.com/show1.png)
-
-![images](http://ooy23086i.bkt.clouddn.com/show2.png)
-
-![images](http://ooy23086i.bkt.clouddn.com/show3.png)
-
 使用方式很简单
 
     ImageShadowView *imageView = [[ImageShadowView alloc] initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width / 2 - 50, [UIScreen mainScreen].bounds.size.height / 2 - 50, 100, 100)];
@@ -34,6 +28,3 @@ imageView.layer.shadowColor = [UIColor redColor].CGColor//需要基于layer层�
     imageView.layer.shadowColor = [UIColor redColor].CGColor;//阴影颜色设置
     
 效果：
-
-![images](http://ooy23086i.bkt.clouddn.com/show4.png)
-
